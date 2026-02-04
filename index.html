@@ -3,30 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <title>Staff QR Code Generator</title>
-
-<!-- QR Code library -->
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-
 <style>
 body {
   font-family: Arial, sans-serif;
   padding: 20px;
   max-width: 400px;
 }
-
 input, button {
   width: 100%;
   padding: 10px;
   margin: 6px 0;
 }
-
 #qrcode {
   margin-top: 20px;
   text-align: center;
 }
 </style>
 </head>
-
 <body>
 
 <h2>Staff QR Code Generator</h2>
@@ -34,33 +28,38 @@ input, button {
 <input id="name" placeholder="Staff Name">
 <input id="email" placeholder="Email Address">
 <input id="website" placeholder="Company Website">
+<input id="phone" placeholder="Phone Number">
+<input id="location" placeholder="Office Location">
 
 <button onclick="generateQR()">Generate QR Code</button>
 
 <div id="qrcode"></div>
 
 <script>
-let qr;
-
 function generateQR() {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const website = document.getElementById("website").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const location = document.getElementById("location").value.trim();
 
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const website = document.getElementById("website").value;
-
-  if (!name || !email || !website) {
+  if (!name || !email || !website || !phone || !location) {
     alert("Please fill all fields");
     return;
   }
 
-  const data =
-    "Name: " + name + "\n" +
-    "Email: " + email + "\n" +
-    "Website: " + website;
+  const data = `Name: ${name}
+Email: ${email}
+Website: ${website}
+Phone: ${phone}
+Location: ${location}`;
 
-  document.getElementById("qrcode").innerHTML = "";
+  // Clear previous QR
+  const qrDiv = document.getElementById("qrcode");
+  qrDiv.innerHTML = "";
 
-  qr = new QRCode(document.getElementById("qrcode"), {
+  // Generate QR
+  new QRCode(qrDiv, {
     text: data,
     width: 200,
     height: 200
