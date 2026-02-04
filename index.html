@@ -3,37 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <title>Staff QR Code Generator</title>
-<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script src="qrcode.min.js"></script> <!-- Use local copy or CDN -->
 <style>
+/* Body styling */
 body {
-  font-family: Arial, sans-serif;
-  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f7fa;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+/* Card container */
+.container {
+  background: #1e3a8a; /* Professional dark blue */
+  color: #ffffff;
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
   max-width: 400px;
-}
-input, button {
   width: 100%;
-  padding: 10px;
-  margin: 6px 0;
-}
-#qrcode {
-  margin-top: 20px;
   text-align: center;
+}
+
+/* Heading */
+h2 {
+  margin-bottom: 25px;
+  font-size: 1.8em;
+  font-weight: 600;
+}
+
+/* Inputs & button */
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  font-size: 1em;
+}
+
+input::placeholder {
+  color: #cbd5e1;
+}
+
+button {
+  background-color: #3b82f6; /* Bright professional blue */
+  color: white;
+  font-size: 1.1em;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  background-color: #2563eb;
+}
+
+/* QR code output */
+#qrcode {
+  margin-top: 25px;
+  padding: 15px;
+  background: #ffffff;
+  display: inline-block;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
 }
 </style>
 </head>
 <body>
 
-<h2>Staff QR Code Generator</h2>
+<div class="container">
+  <h2>Staff QR Code Generator</h2>
 
-<input id="name" placeholder="Staff Name">
-<input id="email" placeholder="Email Address">
-<input id="website" placeholder="Company Website">
-<input id="phone" placeholder="Phone Number">
-<input id="location" placeholder="Office Location">
+  <input id="name" placeholder="Staff Name">
+  <input id="email" placeholder="Email Address">
+  <input id="website" placeholder="Company Website">
+  <input id="phone" placeholder="Phone Number">
+  <input id="location" placeholder="Office Location">
 
-<button onclick="generateQR()">Generate QR Code</button>
+  <button onclick="generateQR()">Generate QR Code</button>
 
-<div id="qrcode"></div>
+  <div id="qrcode"></div>
+</div>
 
 <script>
 function generateQR() {
@@ -54,11 +113,9 @@ Website: ${website}
 Phone: ${phone}
 Location: ${location}`;
 
-  // Clear previous QR
   const qrDiv = document.getElementById("qrcode");
   qrDiv.innerHTML = "";
 
-  // Generate QR
   new QRCode(qrDiv, {
     text: data,
     width: 200,
